@@ -1,0 +1,150 @@
+/* Figma PC 114:1597 — original names: / and spaces become -.
+ * Only Mode 1 is defined. Bound variables and their primitive dependencies follow.
+ * icon/defalt preserves the original spelling; library-* distinguishes imported duplicates.
+ * Imported mapping: gray/0 (2bae9da…/13:241) -> library-gray-0;
+ * gray/1000 (a58a2bb…/13:252) -> library-gray-1000;
+ * icon/white (d4e85d…/13:323) -> library-icon-white;
+ * icon/defalt (e90b95…/13:302) -> library-icon-defalt.
+ * Scale values are spacing lengths in this frame. Strings are recorded, rendered in HTML.
+ * Variables on hidden/state layers are retained but unused in the static initial screen:
+ * icon-white, icon-defalt, library-icon-white, library-icon-defalt, state-disabled, scale-0.
+ */
+:root {
+    --gray-0: #ffffff;
+    --TLJ-900: #163e2a;
+    --gray-300: #e2e2e2;
+    --gray-100: #fafafa;
+    --gray-1000: #2a2a2a;
+    --TLJ-800: #1a4a31;
+    --secondary-100: #f7efd9;
+    --gray-600: #999999;
+    --secondary-50: #fcf8ee;
+    --gray-700: #5a5959;
+    --gray-800: #454545;
+    --library-gray-0: #ffffff;
+    --gray-200: #f2f2f2;
+    --library-gray-1000: #2a2a2a;
+    --surface-white: var(--gray-0);
+    --color-primary-deep: var(--TLJ-900);
+    --icon-white: var(--gray-0);
+    --on-color-text: var(--gray-0);
+    --scale-0: 0px;
+    --scale-4: 4px;
+    --scale-48: 48px;
+    --scale-24: 24px;
+    --border-default: var(--gray-300);
+    --message-placeholder-search: "검색어를 입력하세요";
+    --surface-subtle: var(--gray-100);
+    --body-default: var(--gray-1000);
+    --scale-12: 12px;
+    --color-primary: var(--TLJ-800);
+    --icon-defalt: var(--gray-1000);
+    --scale-20: 20px;
+    --surface-secondary-bg-2: var(--secondary-100);
+    --body-description: var(--gray-600);
+    --color-secondary: var(--secondary-50);
+    --surface-secondary-bg-1: var(--secondary-50);
+    --body-link: var(--gray-700);
+    --surface-dark: var(--gray-800);
+    --library-icon-white: var(--library-gray-0);
+    --state-disabled: var(--gray-200);
+    --library-icon-defalt: var(--library-gray-1000);
+
+    /* Text Styles: AUTO is normal; shared letter spacing is inherited from body.
+     * title/medium is referenced by hidden hero text, unused in the visible initial screen.
+     */
+    --Body-xsm-medium-font-size: 14px;
+    --Body-xsm-medium-font-weight: 500;
+    --Body-xsm-medium-line-height: normal;
+    --Body-xsm-medium-letter-spacing: -0.38px;
+    --title-medium-font-size: 50px;
+    --title-medium-font-weight: 500;
+    --title-medium-line-height: 1.3;
+    --title-medium-letter-spacing: -0.38px;
+    --Body-lg-line-regular-font-size: 17px;
+    --Body-lg-line-regular-font-weight: 400;
+    --Body-lg-line-regular-line-height: 1.5;
+    --Body-lg-line-regular-letter-spacing: -0.38px;
+    --Body-md-medium-font-size: 16px;
+    --Body-md-medium-font-weight: 500;
+    --Body-md-medium-line-height: normal;
+    --Body-md-medium-letter-spacing: -0.38px;
+    --Body-xsm-regular-font-size: 14px;
+    --Body-xsm-regular-font-weight: 400;
+    --Body-xsm-regular-line-height: normal;
+    --Body-xsm-regular-letter-spacing: -0.38px;
+    --H1-medium-font-size: 30px;
+    --H1-medium-font-weight: 500;
+    --H1-medium-line-height: normal;
+    --H1-medium-letter-spacing: -0.38px;
+    --Body-md-regular-font-size: 16px;
+    --Body-md-regular-font-weight: 400;
+    --Body-md-regular-line-height: normal;
+    --Body-md-regular-letter-spacing: -0.38px;
+    --Body-lg-regular-font-size: 17px;
+    --Body-lg-regular-font-weight: 400;
+    --Body-lg-regular-line-height: normal;
+    --Body-lg-regular-letter-spacing: -0.38px;
+    --Body-sm-regular-font-size: 15px;
+    --Body-sm-regular-font-weight: 400;
+    --Body-sm-regular-line-height: normal;
+    --Body-sm-regular-letter-spacing: -0.38px;
+    --Body-lg-medium-font-size: 17px;
+    --Body-lg-medium-font-weight: 500;
+    --Body-lg-medium-line-height: normal;
+    --Body-lg-medium-letter-spacing: -0.38px;
+    --Body-xsm-line-regular-font-size: 14px;
+    --Body-xsm-line-regular-font-weight: 400;
+    --Body-xsm-line-regular-line-height: 1.5;
+    --Body-xsm-line-regular-letter-spacing: -0.38px;
+    --H1-line-medium-font-size: 30px;
+    --H1-line-medium-font-weight: 500;
+    --H1-line-medium-line-height: 1.3;
+    --H1-line-medium-letter-spacing: -0.38px;
+    --Body-md-line-regular-font-size: 16px;
+    --Body-md-line-regular-font-weight: 400;
+    --Body-md-line-regular-line-height: 1.5;
+    --Body-md-line-regular-letter-spacing: -0.38px;
+    --Body-sm-semibold-font-size: 15px;
+    --Body-sm-semibold-font-weight: 600;
+    --Body-sm-semibold-line-height: normal;
+    --Body-sm-semibold-letter-spacing: -0.38px;
+    --Body-sm-line-medium-font-size: 15px;
+    --Body-sm-line-medium-font-weight: 500;
+    --Body-sm-line-medium-line-height: 1.5;
+    --Body-sm-line-medium-letter-spacing: -0.38px;
+    --H2-semibold-font-size: 24px;
+    --H2-semibold-font-weight: 600;
+    --H2-semibold-line-height: normal;
+    --H2-semibold-letter-spacing: -0.38px;
+    --Body-sm-medium-font-size: 15px;
+    --Body-sm-medium-font-weight: 500;
+    --Body-sm-medium-line-height: normal;
+    --Body-sm-medium-letter-spacing: -0.38px;
+    --H2-medium-font-size: 24px;
+    --H2-medium-font-weight: 500;
+    --H2-medium-line-height: normal;
+    --H2-medium-letter-spacing: -0.38px;
+
+    /* Effect Style: Drop Shadow (complete effect stack: one drop shadow). */
+    --Drop-Shadow: 0 0 15px 0 rgb(0 0 0 / 15%);
+
+    /* Target node paints: gradi-bg has no effect payload in the MCP response.
+     * Preserve the actual gradient fills from app-intro and both delivery nodes.
+     */
+    --app-gradient: linear-gradient(180deg, var(--surface-white), var(--color-secondary));
+    --cake-gradient: linear-gradient(180deg, rgb(244 158 158 / 0%) 40%, rgb(244 158 158 / 85%) 100%);
+    --flower-gradient: linear-gradient(180deg, rgb(160 148 135 / 0%) 40%, rgb(160 148 135 / 85%) 100%);
+
+    /* Stage 3 interaction-only token: requested modal dim, absent from Figma. */
+    --modal-backdrop: rgb(0 0 0 / 60%);
+    /* Requested interaction states; these are additions, not Figma Variables. */
+    --event-hover-green: #4c7b42;
+    --event-hover-brown: #8a6347;
+    --event-hover-pink: #b63f5b;
+    --section-enter-duration: 600ms;
+    --section-enter-distance: 20px;
+    --insta-overlay: rgb(0 0 0 / 35%);
+    --marquee-duration: 64s;
+}
+

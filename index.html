@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뚜레쥬르</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css">
+    <link rel="stylesheet" href="styles/default.css">
+    <link rel="stylesheet" href="styles/token.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
+    <script src="scripts/main.js" defer></script>
+</head>
+<body>
+    <div class="promotion">
+        <p>뚜레쥬르 카톡 플친 추가 하면 할인 쿠폰 즉시 증정 ✨</p>
+        <button class="close" type="button" aria-label="프로모션 배너 닫기"></button>
+    </div>
+
+    <header>
+        <div class="inner">
+            <nav aria-label="주요 메뉴">
+                <ul>
+                    <li class="nav-item nav-brand">
+                        <button class="menu" type="button" aria-expanded="false" aria-controls="drop-brand">브랜드 소식</button>
+                        <ul class="drop" id="drop-brand" inert>
+                            <!-- Replace each label and add href when the destination is provided. -->
+                            <li><a href="#" data-placeholder-link>브랜드 스토리</a></li>
+                            <li><a href="#" data-placeholder-link>글로벌 뚜레쥬르</a></li>
+                            <li><a href="#" data-placeholder-link>뚜레쥬르 라뜰리에</a></li>
+                            <li><a href="#" data-placeholder-link>뚜레쥬르 광고</a></li>
+                            <li><a href="#" data-placeholder-link>뉴스&공지사항</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item nav-products">
+                        <button class="menu" type="button" aria-expanded="false" aria-controls="drop-products">제품</button>
+                        <ul class="drop" id="drop-products" inert>
+                            <!-- Replace each label and add href when the destination is provided. -->
+                            <li><a href="#" data-placeholder-link>NEW</a></li>
+                            <li><a href="#" data-placeholder-link>빵</a></li>
+                            <li><a href="#" data-placeholder-link>델리</a></li>
+                            <li><a href="#" data-placeholder-link>디저트&스낵</a></li>
+                            <li><a href="#" data-placeholder-link>선물</a></li>
+                            <li><a href="#" data-placeholder-link>음료</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item nav-events">
+                        <button class="menu" type="button" aria-expanded="false" aria-controls="drop-events">이벤트&amp;멤버십</button>
+                        <ul class="drop" id="drop-events" inert>
+                            <!-- Replace each label and add href when the destination is provided. -->
+                            <li><a href="#" data-placeholder-link>진행 중인 이벤트</a></li>
+                            <li><a href="#" data-placeholder-link>이벤트 당첨자</a></li>
+                            <li><a href="#" data-placeholder-link>CJ ONE 멤버십</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item nav-stores">
+                        <button class="menu" type="button" aria-expanded="false" aria-controls="drop-stores">매장 찾기</button>
+                        <ul class="drop" id="drop-stores" inert>
+                            <!-- Replace each label and add href when the destination is provided. -->
+                            <li><a href="#" data-placeholder-link>매장찾기</a></li>
+                            <li><a href="#" data-placeholder-link>창업하기</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <h1 class="logo">
+                <a href="./index.html"><img src="images/logo-wh.png" alt="뚜레쥬르" width="60" height="45"></a>
+            </h1>
+            <div class="sub-menu">
+                <form id="search" role="search">
+                    <label class="visually-hidden" for="search-query">제품 검색</label>
+                    <input id="search-query" type="search" placeholder="검색어를 입력하세요" autocomplete="off" aria-describedby="search-status">
+                    <button type="submit" aria-label="검색"></button>
+                    <p class="visually-hidden" id="search-status" role="status"></p>
+                </form>
+                <div class="user-menu">
+                    <a href="#" data-placeholder-link class="go-account" aria-label="내 계정"></a>
+                    <a href="#" data-placeholder-link class="go-cart" aria-label="장바구니"></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" aria-label="TOUS les JOURS, Freshly Baked Everyday" data-video-id="9Lr5ne-Ezvw">
+            <div class="hero-video" aria-hidden="true">
+                <div id="hero-player"></div>
+            </div>
+            <div class="hero-overlay" aria-hidden="true"></div>
+        </section>
+
+        <ul class="inner categories" aria-label="제품 카테고리">
+            <li class="category-all">
+                <a href="#" data-placeholder-link aria-label="전체">
+                    <div class="category-image-container">
+                        <img src="images/categories/all.png" alt="" width="84" height="84">
+                    </div>
+                    <span class="category-name">전체</span>
+                </a>
+            </li>
+            <li class="category-bread">
+                <a href="#" data-placeholder-link aria-label="빵">
+                    <div class="category-image-container">
+                        <img src="images/categories/bread.png" alt="" width="120" height="120">
+                    </div>
+                    <span class="category-name">빵</span>
+                </a>
+            </li>
+            <li class="category-cake">
+                <a href="#" data-placeholder-link aria-label="케이크">
+                    <div class="category-image-container">
+                        <img src="images/categories/cake.png" alt="" width="120" height="120">
+                    </div>
+                    <span class="category-name">케이크</span>
+                </a>
+            </li>
+            <li class="category-deli">
+                <a href="#" data-placeholder-link aria-label="델리">
+                    <div class="category-image-container">
+                        <img src="images/categories/deli.png" alt="" width="120" height="120">
+                    </div>
+                    <span class="category-name">델리</span>
+                </a>
+            </li>
+            <li class="category-dessert">
+                <a href="#" data-placeholder-link aria-label="디저트">
+                    <div class="category-image-container">
+                        <img src="images/categories/dessert.png" alt="" width="120" height="120">
+                    </div>
+                    <span class="category-name">디저트</span>
+                </a>
+            </li>
+            <li class="category-gift">
+                <a href="#" data-placeholder-link aria-label="선물">
+                    <div class="category-image-container">
+                        <img src="images/categories/gift.png" alt="" width="120" height="120">
+                    </div>
+                    <span class="category-name">선물</span>
+                </a>
+            </li>
+            <li class="category-beverage">
+                <a href="#" data-placeholder-link aria-label="음료">
+                    <div class="category-image-container">
+                        <img src="images/categories/beverage.png" alt="" width="120" height="120">
+                    </div>
+                    <span class="category-name">음료</span>
+                </a>
+            </li>
+        </ul>
+
+        <section class="inner best-item" aria-labelledby="best-title">
+            <div class="title">
+                <div class="title-container">
+                    <h2 id="best-title">BEST ITEMS</h2>
+                    <p>자꾸 생각나는 맛, 뚜레쥬르의 베스트</p>
+                </div>
+                <a href="#" data-placeholder-link class="more-best-item">전체 보기</a>
+            </div>
+            <div class="swiper best-slider" tabindex="0" role="region" aria-label="베스트 상품 슬라이더">
+                <ul class="swiper-wrapper item-list">
+                    <li class="swiper-slide item-brownie">
+                        <div class="product-card" data-product-id="brownie">
+                            <div class="product-visual">
+                                <a href="#" data-placeholder-link class="product-link" aria-label="크런치 브라우니">
+                                    <img class="product-image" src="images/list/thumb/brownie.png" alt="" width="282" height="338">
+                                    <img class="product-image-hover" aria-hidden="true" src="images/list/thumb/brownie-hover.png" alt="" width="282" height="338">
+                                </a>
+                                <span class="badge">BEST</span>
+                                <div class="product-actions">
+                                    <button class="add-cart" type="button" aria-label="크런치 브라우니 장바구니 담기"><span class="product-action-icon" aria-hidden="true"></span></button>
+                                    <button class="add-wishlist" type="button" aria-label="크런치 브라우니 위시리스트 추가" aria-pressed="false"><span class="product-action-icon" aria-hidden="true"></span></button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <p class="name">크런치 브라우니</p>
+                                <p class="desc">쫀득한 브라우니에 초코 크런치를 더해<br>바삭한 식감을 즐길 수 있는 달콤한 브라우니</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="swiper-slide item-chocolate-financier">
+                        <div class="product-card" data-product-id="chocolate-financier">
+                            <div class="product-visual">
+                                <a href="#" data-placeholder-link class="product-link" aria-label="왁뿌 초코 휘낭시에">
+                                    <img class="product-image" src="images/list/thumb/chocolate-financier.png" alt="" width="282" height="338">
+                                    <img class="product-image-hover" aria-hidden="true" src="images/list/thumb/chocolate-financier-hover.png" alt="" width="282" height="338">
+                                </a>
+                                <span class="badge">BEST</span>
+                                <div class="product-actions">
+                                    <button class="add-cart" type="button" aria-label="왁뿌 초코 휘낭시에 장바구니 담기"><span class="product-action-icon" aria-hidden="true"></span></button>
+                                    <button class="add-wishlist" type="button" aria-label="왁뿌 초코 휘낭시에 위시리스트 추가" aria-pressed="false"><span class="product-action-icon" aria-hidden="true"></span></button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <p class="name">왁뿌 초코 휘낭시에</p>
+                                <p class="desc">초코 휘낭시에 위에 단짠한 소금 우유 크림과<br>진한 다크 초콜릿을 입혀 아그작한 식감을 살린 제품</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="swiper-slide item-victoria-cake">
+                        <div class="product-card" data-product-id="victoria-cake">
+                            <div class="product-visual">
+                                <a href="#" data-placeholder-link class="product-link" aria-label="빅토리아의 정석">
+                                    <img class="product-image" src="images/list/thumb/victoria-cake.png" alt="" width="282" height="338">
+                                    <img class="product-image-hover" aria-hidden="true" src="images/list/thumb/victoria-cake-hover.png" alt="" width="282" height="338">
+                                </a>
+                                <span class="badge">BEST</span>
+                                <div class="product-actions">
+                                    <button class="add-cart" type="button" aria-label="빅토리아의 정석 장바구니 담기"><span class="product-action-icon" aria-hidden="true"></span></button>
+                                    <button class="add-wishlist" type="button" aria-label="빅토리아의 정석 위시리스트 추가" aria-pressed="false"><span class="product-action-icon" aria-hidden="true"></span></button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <p class="name">빅토리아의 정석</p>
+                                <p class="desc">부드러운 시트 사이에 요거트 크림과<br>상큼한 베리잼을 더해 달콤하게 즐길 수 있는 디저트</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="swiper-slide item-creme-brulee">
+                        <div class="product-card" data-product-id="creme-brulee">
+                            <div class="product-visual">
+                                <a href="#" data-placeholder-link class="product-link" aria-label="크렘브륄레 바닐라">
+                                    <img class="product-image" src="images/list/thumb/creme-brulee.png" alt="" width="282" height="338">
+                                    <img class="product-image-hover" aria-hidden="true" src="images/list/thumb/creme-brulee-hover.png" alt="" width="282" height="338">
+                                </a>
+                                <span class="badge">BEST</span>
+                                <div class="product-actions">
+                                    <button class="add-cart" type="button" aria-label="크렘브륄레 바닐라 장바구니 담기"><span class="product-action-icon" aria-hidden="true"></span></button>
+                                    <button class="add-wishlist" type="button" aria-label="크렘브륄레 바닐라 위시리스트 추가" aria-pressed="false"><span class="product-action-icon" aria-hidden="true"></span></button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <p class="name">크렘브륄레 바닐라</p>
+                                <p class="desc">톡! 깨지는 달콤한 카라멜과 부드러운 바닐라<br>아이스크림을 함께 즐길 수 있는 디저트</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="best-controls">
+                    <button class="best-prev" type="button" aria-label="이전 베스트 상품" disabled></button>
+                    <button class="best-next" type="button" aria-label="다음 베스트 상품" disabled></button>
+                </div>
+            </div>
+            <p class="visually-hidden product-status" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="event" aria-labelledby="event-title">
+            <div class="title">
+                <div class="title-container">
+                    <h2 id="event-title">EVENT</h2>
+                    <p>일상에 즐거움을 더하는 뚜레쥬르의 소식</p>
+                </div>
+            </div>
+            <div class="swiper event-slider" tabindex="0" role="region" aria-label="이벤트 슬라이더">
+                <ul class="swiper-wrapper event-list">
+                    <li class="swiper-slide">
+                        <article class="event-afternoon">
+                            <div class="event-content-container">
+                                <div class="event-copy-container">
+                                    <div class="title">
+                                        <p class="eyebrow">TOUS les JOURS</p>
+                                        <h3>오후 두 시, 맛있는 쉼표</h3>
+                                    </div>
+                                    <p class="desc">오후 2시부터 5시까지, 빵과 커피를<br>특별한 세트 가격으로 즐겨보세요.</p>
+                                </div>
+                                <a href="#" data-placeholder-link class="more-afternoon event-more">자세히 보기</a>
+                            </div>
+                            <img class="event-logo" src="images/events/strawberry-logo.png" alt="" width="372" height="53">
+                        </article>
+                    </li>
+                    <li class="swiper-slide">
+                        <article class="event-strawberry">
+                            <div class="event-content-container">
+                                <div class="event-copy-container">
+                                    <div class="title">
+                                        <p class="eyebrow">TOUS les JOURS</p>
+                                        <h3>딸기 케이크 사전 예약</h3>
+                                    </div>
+                                    <p class="desc">사전예약 하고 10% 할인된 가격으로<br>뚜레쥬르 케익을 만나보세요!</p>
+                                </div>
+                                <a href="#" data-placeholder-link class="more-strawberry event-more">자세히 보기</a>
+                            </div>
+                            <img class="event-logo" src="images/events/strawberry-logo.png" alt="" width="372" height="53">
+                        </article>
+                    </li>
+                    <li class="swiper-slide">
+                        <article class="event-photo">
+                            <div class="event-content-container">
+                                <div class="event-copy-container">
+                                    <div class="title">
+                                        <p class="eyebrow">TOUS les JOURS</p>
+                                        <h3>뚜레쥬르와 함께한 순간</h3>
+                                    </div>
+                                    <p class="desc">맛있는 순간을 사진으로 남겨주세요.<br>추첨을 통해 달콤한 선물을 드려요.</p>
+                                </div>
+                                <a href="#" data-placeholder-link class="more-photo event-more">자세히 보기</a>
+                            </div>
+                            <img class="event-logo" src="images/events/strawberry-logo.png" alt="" width="372" height="53">
+                        </article>
+                    </li>
+                </ul>
+                <button class="event-prev" type="button" aria-label="이전 이벤트" disabled></button>
+                <button class="event-next" type="button" aria-label="다음 이벤트" disabled></button>
+            </div>
+        </section>
+
+        <section class="app-intro" aria-labelledby="app-title">
+            <div class="inner">
+                <div class="app-content-container">
+                    <div class="app-download-container">
+                        <div class="app-copy-container">
+                            <div class="title">
+                                <p class="eyebrow">TOUS les JOURS APP</p>
+                                <h2 id="app-title">매일의 즐거움을,<br>이제 앱에서 만나보세요.</h2>
+                            </div>
+                            <p class="desc">뚜레쥬르의 다양한 소식을<br>언제 어디서나 더 가까이 만나보세요.</p>
+                        </div>
+                        <div class="download-links">
+                            <a href="#" data-placeholder-link class="go-app-store button-fill">App Store</a>
+                            <a href="#" data-placeholder-link class="go-google-play button-stroke">Google Play</a>
+                        </div>
+                    </div>
+                    <div class="qr-guide-container">
+                        <div class="qr-code-container">
+                            <img src="images/app/download-qr.png" alt="뚜레쥬르 앱 다운로드 QR 코드" width="90" height="90">
+                        </div>
+                        <p>지금 QR 코드를 인식하여<br>뚜레쥬르 앱을 다운로드 하세요!</p>
+                    </div>
+                </div>
+                <div class="app-visual-container">
+                    <div class="app-phone-enter">
+                        <div class="app-phone-hover-container">
+                            <img class="phone-mockup" src="images/app/phone-mockup.png" alt="뚜레쥬르 앱의 소식과 케이크 주문 화면" width="667" height="550">
+                        </div>
+                    </div>
+                    <div class="app-icon-enter">
+                        <div class="app-icon-hover-container">
+                            <img class="app-icon" src="images/app/app-icon.png" alt="" width="130" height="130">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="inner delivery" aria-labelledby="delivery-title">
+            <div class="title">
+                <div class="title-container">
+                    <h2 id="delivery-title">케이크&amp;꽃다발 배송 서비스</h2>
+                    <p>일상에 즐거움을 더하는 뚜레쥬르의 소식</p>
+                </div>
+            </div>
+            <div class="delivery-list">
+                <article class="cake-delivery" tabindex="0">
+                    <div class="delivery-content-container">
+                        <div class="title">
+                            <p class="eyebrow">CAKE DELIVERY</p>
+                            <h3>축하하는 마음을 달콤하게 전하세요.</h3>
+                        </div>
+                        <a href="#" data-placeholder-link class="go-cake-delivery delivery-more">케이크 살펴보기</a>
+                    </div>
+                </article>
+                <article class="flower-delivery" tabindex="0">
+                    <div class="delivery-content-container">
+                        <div class="title">
+                            <p class="eyebrow">FLOWER DELIVERY</p>
+                            <h3>말로 다 못한 마음, 꽃으로 전하세요.</h3>
+                        </div>
+                        <a href="#" data-placeholder-link class="go-flower-delivery delivery-more">꽃 배송 살펴보기</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="bulk-order" aria-labelledby="bulk-title">
+            <div class="bulk-marquee" aria-hidden="true">
+                <div class="marquee-track">
+                    <div class="marquee-group"><span class="marquee-item"></span></div>
+                    <div class="marquee-group"><span class="marquee-item"></span></div>
+                </div>
+            </div>
+            <div class="inner">
+                <div class="bulk-order-content-container">
+                    <p class="eyebrow">TOUS les JOURS Delivery</p>
+                    <div class="bulk-order-body-container">
+                        <div class="bulk-order-copy-container">
+                            <h2 id="bulk-title">뚜레쥬르는 기업체와 단체 주문이 가능합니다.</h2>
+                            <p class="desc">대량 구매 문의 및 B2B 거래 관련 궁금하신 사항은<br>아래 방법으로 문의해 주세요.</p>
+                        </div>
+                        <div class="contact-links">
+                            <a href="#" data-placeholder-link class="go-contact button-stroke">온라인 상담</a>
+                            <a href="#" data-placeholder-link class="go-phone button-stroke">전화 상담</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img class="croissant" src="images/bulk-order/croissant.png" alt="" width="551" height="311">
+            <img class="sandwich-gift" src="images/bulk-order/sandwich-gift-source.png" alt="" width="616" height="554">
+        </section>
+
+        <section class="insta" aria-labelledby="insta-title">
+            <div class="insta-content-container">
+                <div class="insta-copy-container">
+                    <div class="title">
+                        <h2 id="insta-title">INSTAGRAM</h2>
+                        <p>@touslesjours_kr</p>
+                    </div>
+                    <p class="desc">뚜레쥬르의 소식을 가장 빠르게<br>만나 보세요!</p>
+                </div>
+                <div class="slider-controls">
+                    <button class="insta-prev" type="button" aria-label="이전 인스타그램 게시물" disabled></button>
+                    <p class="slider-count" aria-live="polite" aria-atomic="true">1 / 5</p>
+                    <button class="insta-next" type="button" aria-label="다음 인스타그램 게시물" disabled></button>
+                </div>
+            </div>
+            <div class="swiper insta-slider" tabindex="0" role="region" aria-label="인스타그램 게시물 슬라이더">
+                <ul class="swiper-wrapper insta-list">
+                    <li class="swiper-slide">
+                        <a href="#" data-placeholder-link class="insta-post">
+                            <img src="images/list/thumb/instagram-01.png" alt="뚜레쥬르 인스타그램 게시물 1" width="282" height="348">
+                            <span class="insta-overlay" aria-hidden="true">
+                                <span class="insta-icon insta-heart"></span>
+                                <span class="insta-icon insta-comment"></span>
+                                <span class="insta-icon insta-dm"></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="swiper-slide">
+                        <a href="#" data-placeholder-link class="insta-post">
+                            <img src="images/list/thumb/instagram-02.png" alt="뚜레쥬르 인스타그램 게시물 2" width="282" height="348">
+                            <span class="insta-overlay" aria-hidden="true">
+                                <span class="insta-icon insta-heart"></span>
+                                <span class="insta-icon insta-comment"></span>
+                                <span class="insta-icon insta-dm"></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="swiper-slide">
+                        <a href="#" data-placeholder-link class="insta-post">
+                            <img src="images/list/thumb/instagram-03.png" alt="뚜레쥬르 인스타그램 게시물 3" width="282" height="348">
+                            <span class="insta-overlay" aria-hidden="true">
+                                <span class="insta-icon insta-heart"></span>
+                                <span class="insta-icon insta-comment"></span>
+                                <span class="insta-icon insta-dm"></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="swiper-slide">
+                        <a href="#" data-placeholder-link class="insta-post">
+                            <img src="images/list/thumb/instagram-04.png" alt="뚜레쥬르 인스타그램 게시물 4" width="282" height="348">
+                            <span class="insta-overlay" aria-hidden="true">
+                                <span class="insta-icon insta-heart"></span>
+                                <span class="insta-icon insta-comment"></span>
+                                <span class="insta-icon insta-dm"></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="swiper-slide">
+                        <a href="#" data-placeholder-link class="insta-post">
+                            <img src="images/list/thumb/instagram-03.png" alt="뚜레쥬르 인스타그램 게시물 5" width="282" height="348">
+                            <span class="insta-overlay" aria-hidden="true">
+                                <span class="insta-icon insta-heart"></span>
+                                <span class="insta-icon insta-comment"></span>
+                                <span class="insta-icon insta-dm"></span>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="store-franchise" aria-label="매장 찾기와 창업 안내">
+            <div class="inner">
+                <article class="store-finder" tabindex="0">
+                    <div class="store-content-container">
+                        <div class="title">
+                            <p class="eyebrow">FIND A STORE</p>
+                            <h2>가까운 뚜레쥬르를 찾아보세요.</h2>
+                        </div>
+                        <p class="desc">일상 속 맛있는 만남이 기다리는 곳</p>
+                        <a href="#" data-placeholder-link class="go-store button-fill">매장 찾기</a>
+                    </div>
+                    <img src="images/icons/store-finder.png" alt="" width="215" height="189">
+                </article>
+                <article class="franchise" tabindex="0">
+                    <div class="franchise-content-container">
+                        <div class="title">
+                            <p class="eyebrow">FRANCHISE</p>
+                            <h2>뚜레쥬르와 새로운 시작을 함께해요.</h2>
+                        </div>
+                        <p class="desc">당신의 내일을 위한 창업 안내</p>
+                        <a href="#" data-placeholder-link class="go-franchise button-fill">창업 안내</a>
+                    </div>
+                    <img src="images/icons/franchise.png" alt="" width="302" height="202">
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="inner">
+            <nav class="footer-policy" aria-label="회사 및 이용 안내">
+                <ul>
+                    <li><a href="#" data-placeholder-link>CJ푸드빌</a></li>
+                    <li><a href="#" data-placeholder-link>기사 채용안내</a></li>
+                    <li><a href="#" data-placeholder-link>창업안내</a></li>
+                    <li><a href="#" data-placeholder-link>이메일무단수집거부</a></li>
+                    <li><a href="#" data-placeholder-link>법적고지</a></li>
+                    <li><a href="#" data-placeholder-link>사이트맵</a></li>
+                </ul>
+            </nav>
+            <hr class="footer-divider">
+            <div class="footer-main">
+                <div class="brand-about">
+                    <div class="footer-brand-container">
+                        <div class="footer-logo">
+                            <a href="./index.html"><img src="images/logo-wh.png" alt="뚜레쥬르" width="64" height="48"></a>
+                        </div>
+                        <p>CJ푸드빌(주)</p>
+                    </div>
+                    <div class="brand-info">
+                        <p>대표이사 이건일 &nbsp; · &nbsp; 사업자등록번호 312-81-42519</p>
+                        <p>(우)04555 서울시 중구 마른내로 34, KT&amp;G을지로타워 3, 9–11층 CJ푸드빌(주)</p>
+                        <p>통신판매업종신고증 제 2011-서울중구-0771호 &nbsp; · &nbsp; 호스팅제공자 CJ올리브네트웍스(주)</p>
+                        <p>개인정보보호책임자 명제준 &nbsp; · &nbsp; helpmaster@cj.net</p>
+                    </div>
+                </div>
+                <div class="brand-cs">
+                    <p class="title">고객센터</p>
+                    <a class="go-phone" href="tel:15770700">1577-0700</a>
+                    <a class="go-email" href="mailto:helpmaster@cj.net">helpmaster@cj.net</a>
+                </div>
+            </div>
+            <p class="copyright">COPYRIGHT 2026 © CJ Foodville ALL RIGHT RESERVED.</p>
+        </div>
+    </footer>
+    <!-- Temporary modal banners reuse the supplied Figma event assets and copy. -->
+    <dialog class="event-modal" aria-labelledby="modal-title">
+        <h2 class="visually-hidden" id="modal-title">EVENT</h2>
+        <button class="modal-close" type="button" aria-label="이벤트 모달 닫기" autofocus></button>
+        <div class="swiper modal-slider">
+            <ul class="swiper-wrapper modal-list">
+                <li class="swiper-slide">
+                    <article class="event-strawberry">
+                        <div class="event-content-container">
+                            <div class="event-copy-container">
+                                <div class="title">
+                                    <p class="eyebrow">TOUS les JOURS</p>
+                                    <h3>딸기 케이크 사전 예약</h3>
+                                </div>
+                                <p class="desc">사전예약 하고 10% 할인된 가격으로<br>뚜레쥬르 케익을 만나보세요!</p>
+                            </div>
+                            <a href="#" data-placeholder-link class="more-strawberry event-more">자세히 보기</a>
+                        </div>
+                        <img class="event-logo" src="images/events/strawberry-logo.png" alt="" width="372" height="53">
+                    </article>
+                </li>
+                <li class="swiper-slide">
+                    <article class="event-photo">
+                        <div class="event-content-container">
+                            <div class="event-copy-container">
+                                <div class="title">
+                                    <p class="eyebrow">TOUS les JOURS</p>
+                                    <h3>뚜레쥬르와 함께한 순간</h3>
+                                </div>
+                                <p class="desc">맛있는 순간을 사진으로 남겨주세요.<br>추첨을 통해 달콤한 선물을 드려요.</p>
+                            </div>
+                            <a href="#" data-placeholder-link class="more-photo event-more">자세히 보기</a>
+                        </div>
+                        <img class="event-logo" src="images/events/strawberry-logo.png" alt="" width="372" height="53">
+                    </article>
+                </li>
+                <li class="swiper-slide">
+                    <article class="event-afternoon">
+                        <div class="event-content-container">
+                            <div class="event-copy-container">
+                                <div class="title">
+                                    <p class="eyebrow">TOUS les JOURS</p>
+                                    <h3>오후 두 시, 맛있는 쉼표</h3>
+                                </div>
+                                <p class="desc">오후 2시부터 5시까지, 빵과 커피를<br>특별한 세트 가격으로 즐겨보세요.</p>
+                            </div>
+                            <a href="#" data-placeholder-link class="more-afternoon event-more">자세히 보기</a>
+                        </div>
+                        <img class="event-logo" src="images/events/strawberry-logo.png" alt="" width="372" height="53">
+                    </article>
+                </li>
+            </ul>
+        </div>
+        <div class="modal-controls">
+            <button class="modal-prev" type="button" aria-label="이전 이벤트 배너" disabled></button>
+            <div class="swiper-pagination modal-pagination"></div>
+            <button class="modal-next" type="button" aria-label="다음 이벤트 배너" disabled></button>
+        </div>
+    </dialog>
+
+</body>
+</html>
