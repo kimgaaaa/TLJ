@@ -27,42 +27,50 @@
 
     header .inner {
         position: relative;
-        height: 120px;
-        padding-block: 30px;
+        height: 60px;
+        margin-inline: 16px;
+        padding-block: 0;
     }
 
     .menu-mobile {
         width: 44px;
         height: 44px;
-        margin-left: -10px;
+        margin-left: 0;
         background: url("../images/icons/menu-mobile.svg") center no-repeat;
     }
 
     header .logo {
         position: absolute;
-        top: 30px;
-        left: calc(50% - 50px);
-        height: 60px;
+        top: 8px;
+        left: calc(50% - 24px);
+        height: 44px;
     }
 
-    header .logo a,
+    header .logo a {
+        display: flex;
+        align-items: center;
+        width: 48px;
+        height: 44px;
+    }
+
     header .logo img {
-        width: 80px;
-        height: 60px;
+        width: 48px;
+        height: 36px;
     }
 
     header .sub-menu {
         align-items: center;
-        gap: var(--scale-24);
+        gap: 0;
     }
 
     header .user-menu {
-        gap: var(--scale-24);
+        gap: 0;
     }
 
     #search {
-        width: 24px;
-        height: 48px;
+        width: 44px;
+        height: 44px;
+        justify-content: center;
         padding: 0;
         border: 0;
     }
@@ -87,6 +95,20 @@
     .user-menu a,
     .slider-controls button {
         position: relative;
+    }
+
+    header .user-menu,
+    header .user-menu a {
+        height: 44px;
+    }
+
+    header .user-menu a {
+        width: 44px;
+        background-size: 24px;
+    }
+
+    .user-menu a::after {
+        inset: 0;
     }
 
     #search.is-search-open {
@@ -362,8 +384,7 @@
         display: none;
     }
 
-    .product-actions,
-    .best-controls {
+    .product-actions {
         opacity: 1;
     }
 
@@ -373,9 +394,8 @@
         pointer-events: auto;
     }
 
-    .best-prev,
-    .best-next {
-        top: calc((100vw - 2 * var(--mobile-gutter) - 30px) * 169 / 578 - 22px);
+    .best-controls {
+        display: none;
     }
 
     .more-best-item {
@@ -406,41 +426,48 @@
 
     .event-slider {
         height: auto;
-        margin-top: 50px;
+        margin: 50px var(--mobile-gutter) 0;
+        overflow: hidden;
     }
 
     .event-slider .swiper-slide {
-        flex-basis: calc(100% - 2 * var(--mobile-gutter));
-        width: calc(100% - 2 * var(--mobile-gutter));
+        flex-basis: 100%;
+        width: 100%;
+        height: auto;
     }
 
     .event-list article {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        min-width: 0;
+        min-height: 301px;
         height: auto;
         aspect-ratio: 608 / 301;
+        background-size: cover;
     }
 
     .event .event-content-container {
-        min-height: inherit;
+        position: relative;
+        inset: auto;
+        width: 100%;
+        min-width: 0;
+        height: auto;
         gap: 22px;
-        padding: 0 30px;
-        position: absolute;
-        inset: 0;
+        padding: 32px 56px;
+    }
+
+    .event-copy-container {
+        word-break: keep-all;
     }
 
     .event .event-logo {
         top: auto;
-        bottom: 35px;
-        left: 50%;
-        width: 263px;
+        bottom: 12px;
+        right: 16px;
+        left: auto;
+        width: min(263px, 43.256579%);
         height: auto;
-    }
-
-    .event .event-afternoon .event-logo {
-        left: 46.217105%;
-    }
-
-    .event .event-photo .event-logo {
-        left: 47.861842%;
     }
 
     .event-more,
@@ -461,11 +488,11 @@
     }
 
     .event-prev {
-        left: max(0px, calc(var(--mobile-gutter) - 44px));
+        left: 0;
     }
 
     .event-next {
-        right: max(0px, calc(var(--mobile-gutter) - 44px));
+        right: 0;
         left: auto;
     }
 
@@ -654,8 +681,24 @@
 
     .insta-slider {
         grid-row: 2;
+        width: calc(100% - 2 * var(--mobile-gutter));
+        margin: 50px var(--mobile-gutter) 0;
+    }
+
+    .insta-slider .swiper-slide {
+        flex-basis: 100%;
         width: 100%;
-        margin-top: 50px;
+    }
+
+    .insta-list .insta-post {
+        aspect-ratio: 1;
+    }
+
+    .insta-list img {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
     }
 
     .insta .slider-controls {
@@ -770,19 +813,6 @@
 
 /* Natural shrink below the supplied 768px frame; no alternate content/layout. */
 @media (max-width: 600px) {
-    header .sub-menu,
-    header .user-menu {
-        gap: var(--scale-12);
-    }
-
-    .event-list article {
-        min-height: 301px;
-    }
-
-    .event .event-content-container {
-        padding-inline: 20px;
-    }
-
     .event-copy-container h3 {
         font-size: var(--H2-medium-font-size);
     }
@@ -805,11 +835,6 @@
 
     .store-franchise .title h2 {
         text-wrap: balance;
-    }
-
-    .event .event-logo {
-        width: 43.256579%;
-        bottom: 20px;
     }
 
     .delivery-list article {

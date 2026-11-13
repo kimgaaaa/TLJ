@@ -857,8 +857,8 @@
             slidesPerGroup: 1,
             spaceBetween: 50,
             breakpoints: {
-                0: { spaceBetween: 30 },
-                769: { spaceBetween: 50 }
+                0: { slidesPerView: 1, spaceBetween: 30, autoHeight: true },
+                769: { slidesPerView: "auto", spaceBetween: 50, autoHeight: false }
             },
             loop: true,
             speed: motionPreference.matches ? 0 : 600,
@@ -961,8 +961,8 @@
             spaceBetween: 24,
             initialSlide: mobilePreference.matches ? 1 : 0,
             breakpoints: {
-                0: { centeredSlides: true, slidesOffsetBefore: -153 },
-                769: { centeredSlides: false, slidesOffsetBefore: 0 }
+                0: { slidesPerView: 1, centeredSlides: true, slidesOffsetBefore: 0 },
+                769: { slidesPerView: "auto", centeredSlides: false, slidesOffsetBefore: 0 }
             },
             loop: true,
             speed: motionPreference.matches ? 0 : 450,
