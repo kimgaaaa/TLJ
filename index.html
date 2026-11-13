@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="styles/default.css">
     <link rel="stylesheet" href="styles/token.css">
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/tablet.css">
+    <link rel="stylesheet" href="styles/mobile.css">
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js" defer></script>
     <script src="scripts/main.js" defer></script>
 </head>
@@ -19,7 +21,13 @@
 
     <header>
         <div class="inner">
-            <nav aria-label="주요 메뉴">
+            <button class="menu-mobile" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="primary-navigation" hidden></button>
+            <button class="menu-overlay" type="button" aria-label="메뉴 닫기" tabindex="-1" aria-hidden="true" hidden></button>
+            <nav id="primary-navigation" aria-label="주요 메뉴">
+                <div class="drawer-heading" hidden>
+                    <p class="drawer-brand" id="drawer-title">TOUS les JOURS</p>
+                    <button class="drawer-close" type="button" aria-label="메뉴 닫기"></button>
+                </div>
                 <ul>
                     <li class="nav-item nav-brand">
                         <button class="menu" type="button" aria-expanded="false" aria-controls="drop-brand">브랜드 소식</button>
@@ -310,9 +318,9 @@
                         <div class="app-copy-container">
                             <div class="title">
                                 <p class="eyebrow">TOUS les JOURS APP</p>
-                                <h2 id="app-title">매일의 즐거움을,<br>이제 앱에서 만나보세요.</h2>
+                                <h2 id="app-title">매일의 즐거움을,<br> 이제 앱에서 만나보세요.</h2>
                             </div>
-                            <p class="desc">뚜레쥬르의 다양한 소식을<br>언제 어디서나 더 가까이 만나보세요.</p>
+                            <p class="desc">뚜레쥬르의 다양한 소식을<br> 언제 어디서나 더 가까이 만나보세요.</p>
                         </div>
                         <div class="download-links">
                             <a href="#" data-placeholder-link class="go-app-store button-fill">App Store</a>
@@ -334,7 +342,10 @@
                     </div>
                     <div class="app-icon-enter">
                         <div class="app-icon-hover-container">
-                            <img class="app-icon" src="images/app/app-icon.png" alt="" width="130" height="130">
+                            <picture>
+                                <source media="(max-width: 768px)" srcset="images/app/app-icon-mobile.png">
+                                <img class="app-icon" src="images/app/app-icon.png" alt="" width="130" height="130">
+                            </picture>
                         </div>
                     </div>
                 </div>
@@ -403,7 +414,7 @@
                         <h2 id="insta-title">INSTAGRAM</h2>
                         <p>@touslesjours_kr</p>
                     </div>
-                    <p class="desc">뚜레쥬르의 소식을 가장 빠르게<br>만나 보세요!</p>
+                    <p class="desc">뚜레쥬르의 소식을 가장 빠르게<br> 만나 보세요!</p>
                 </div>
                 <div class="slider-controls">
                     <button class="insta-prev" type="button" aria-label="이전 인스타그램 게시물" disabled></button>

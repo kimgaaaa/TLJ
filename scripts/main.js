@@ -2,6 +2,7 @@
 
 (() => {
     const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mobilePreference = window.matchMedia("(max-width: 768px)");
     const dialog = document.querySelector(".event-modal");
     const header = document.querySelector("header");
     const hero = document.querySelector(".hero");
@@ -95,9 +96,16 @@
         let scrollFrame = 0;
 
         function setMenu(item, open) {
+            const drop = item.querySelector(".drop");
+            if (!drop) {
+                return;
+            }
+            if (mobilePreference.matches && open) {
+                drop.style.setProperty("--drawer-drop-height", `${drop.scrollHeight}px`);
+            }
             item.classList.toggle("open", open);
             item.querySelector(".menu").setAttribute("aria-expanded", String(open));
-            item.querySelector(".drop").inert = !open;
+            drop.inert = !open;
         }
 
         function closeMenus(except = null) {
@@ -115,15 +123,25 @@
 
         items.forEach((item) => {
             const trigger = item.querySelector(".menu");
+            const drop = item.querySelector(".drop");
             const links = [...item.querySelectorAll(".drop a")];
 
+            drop?.addEventListener("transitionend", (event) => {
+                if (event.target === drop && event.propertyName === "height"
+                    && mobilePreference.matches && item.classList.contains("open")
+                    && drop.contains(document.activeElement)) {
+                    // Keyboard focus may move before the animated panel has finished growing.
+                    document.activeElement.scrollIntoView({ block: "nearest", inline: "nearest" });
+                }
+            });
+
             item.addEventListener("pointerenter", (event) => {
-                if (event.pointerType !== "touch") {
+                if (!mobilePreference.matches && event.pointerType !== "touch") {
                     openMenu(item);
                 }
             });
             item.addEventListener("pointerleave", () => {
-                if (!item.contains(document.activeElement)) {
+                if (!mobilePreference.matches && !item.contains(document.activeElement)) {
                     setMenu(item, false);
                 }
             });
@@ -136,7 +154,7 @@
             });
             item.addEventListener("focusout", () => {
                 queueMicrotask(() => {
-                    if (!item.contains(document.activeElement)) {
+                    if (!mobilePreference.matches && !item.contains(document.activeElement)) {
                         setMenu(item, false);
                     }
                 });
@@ -214,6 +232,232 @@
         });
     }
 
+    // One shared GNB: dropdowns on PC/tablet, an accessible modal drawer on mobile.
+    function initMobileHeader() {
+        const trigger = header?.querySelector(".menu-mobile");
+        const navigation = header?.querySelector("nav");
+        const search = header?.querySelector("#search");
+        const overlay = header?.querySelector(".menu-overlay");
+        const heading = navigation?.querySelector(".drawer-heading");
+        const closeButton = navigation?.querySelector(".drawer-close");
+        if (!trigger || !navigation || !search || !overlay || !heading || !closeButton) {
+            return;
+        }
+        const shell = trigger.parentElement;
+        const searchButton = search.querySelector("button");
+        const searchInput = search.querySelector("input");
+        const desktopHeroLabel = hero?.getAttribute("aria-label");
+        const backgroundState = new Map();
+        let scrollState = null;
+
+        function isOpen() {
+            return header.classList.contains("is-menu-open");
+        }
+
+        function lockBackground() {
+            const root = document.documentElement;
+            const body = document.body;
+            scrollState = {
+                x: window.scrollX,
+                y: window.scrollY,
+                overflow: root.style.overflow,
+                gutter: root.style.scrollbarGutter,
+                body: Object.fromEntries(["overflow", "position", "top", "left", "width"]
+                    .map((property) => [property, body.style[property]]))
+            };
+            // Preserve the scrollbar space so locking cannot change the breakpoint.
+            root.style.scrollbarGutter = "stable";
+            root.style.overflow = "hidden";
+            body.style.overflow = "hidden";
+            body.style.position = "fixed";
+            body.style.top = `${-scrollState.y}px`;
+            body.style.left = `${-scrollState.x}px`;
+            body.style.width = "100%";
+            const targets = [
+                ...[...body.children].filter((element) => element !== header && element.tagName !== "SCRIPT"),
+                ...[...shell.children].filter((element) => element !== navigation && element !== overlay)
+            ];
+            targets.forEach((element) => {
+                backgroundState.set(element, element.inert);
+                element.inert = true;
+            });
+        }
+
+        function unlockBackground() {
+            backgroundState.forEach((inert, element) => { element.inert = inert; });
+            backgroundState.clear();
+            if (!scrollState) {
+                return;
+            }
+            const saved = scrollState;
+            scrollState = null;
+            Object.entries(saved.body).forEach(([property, value]) => {
+                document.body.style[property] = value;
+            });
+            document.documentElement.style.overflow = saved.overflow;
+            document.documentElement.style.scrollbarGutter = saved.gutter;
+            window.scrollTo(saved.x, saved.y);
+        }
+
+        function closeMenu(restoreFocus = true) {
+            const wasOpen = isOpen();
+            header.classList.remove("is-menu-open");
+            trigger.setAttribute("aria-expanded", "false");
+            trigger.setAttribute("aria-label", "메뉴 열기");
+            shell.removeAttribute("role");
+            shell.removeAttribute("aria-modal");
+            shell.removeAttribute("aria-labelledby");
+            navigation.inert = mobilePreference.matches;
+            if (wasOpen) {
+                unlockBackground();
+                if (restoreFocus && mobilePreference.matches) {
+                    trigger.focus({ preventScroll: true });
+                }
+            }
+        }
+
+        function closeSearch() {
+            search.classList.remove("is-search-open");
+            if (mobilePreference.matches) {
+                searchButton.setAttribute("aria-expanded", "false");
+            }
+        }
+
+        function resetAccordions() {
+            header.classList.add("drawer-reset");
+            navigation.querySelectorAll(".nav-item").forEach((item) => {
+                const drop = item.querySelector(".drop");
+                if (drop) {
+                    item.classList.remove("open");
+                    item.querySelector(".menu").setAttribute("aria-expanded", "false");
+                    drop.inert = true;
+                    drop.style.removeProperty("--drawer-drop-height");
+                }
+            });
+            // Reset while hidden, without replaying a previous accordion's closing motion.
+            navigation.getBoundingClientRect();
+            navigation.querySelector(":scope > ul").scrollTop = 0;
+            header.classList.remove("drawer-reset");
+        }
+
+        function syncMobileHeader() {
+            const wasOpen = isOpen();
+            const focusedInNavigation = navigation.contains(document.activeElement);
+            header.classList.remove("drawer-ready");
+            closeMenu(false);
+            trigger.hidden = !mobilePreference.matches;
+            heading.hidden = !mobilePreference.matches;
+            overlay.hidden = !mobilePreference.matches;
+            closeSearch();
+            if (desktopHeroLabel) {
+                hero.setAttribute("aria-label", mobilePreference.matches
+                    ? "TOUS les JOURS, HOLIDAY Lights on"
+                    : desktopHeroLabel);
+            }
+            if (mobilePreference.matches) {
+                resetAccordions();
+                searchButton.setAttribute("aria-controls", "search-query");
+                if (focusedInNavigation) {
+                    trigger.focus({ preventScroll: true });
+                }
+            } else {
+                navigation.querySelectorAll(".drop").forEach((drop) => {
+                    drop.style.removeProperty("--drawer-drop-height");
+                });
+                searchButton.removeAttribute("aria-expanded");
+                searchButton.removeAttribute("aria-controls");
+                if (wasOpen) {
+                    navigation.querySelector(".menu")?.focus({ preventScroll: true });
+                }
+            }
+        }
+
+        function openMenu() {
+            if (!mobilePreference.matches || isOpen() || dialog?.open) {
+                return;
+            }
+            closeSearch();
+            resetAccordions();
+            navigation.inert = false;
+            lockBackground();
+            header.classList.add("drawer-ready");
+            // Establish the off-screen position before the first opening transition.
+            navigation.getBoundingClientRect();
+            header.classList.add("is-menu-open");
+            // Keep the nav landmark; the existing generic wrapper owns dialog semantics.
+            shell.setAttribute("role", "dialog");
+            shell.setAttribute("aria-modal", "true");
+            shell.setAttribute("aria-labelledby", "drawer-title");
+            trigger.setAttribute("aria-expanded", "true");
+            trigger.setAttribute("aria-label", "메뉴 닫기");
+            closeButton.focus({ preventScroll: true });
+        }
+
+        function focusableItems() {
+            return [...navigation.querySelectorAll('a[href], button:not(:disabled), input:not(:disabled), [tabindex]')]
+                .filter((element) => element.tabIndex >= 0 && !element.closest("[inert]")
+                    && element.getClientRects().length && getComputedStyle(element).visibility !== "hidden");
+        }
+
+        trigger.addEventListener("click", openMenu);
+        closeButton.addEventListener("click", () => closeMenu());
+        overlay.addEventListener("click", () => closeMenu());
+        navigation.addEventListener("click", (event) => {
+            if (mobilePreference.matches && event.target.closest("a[href]")) {
+                closeMenu();
+            }
+        });
+        document.addEventListener("keydown", (event) => {
+            if (!isOpen()) {
+                return;
+            }
+            if (event.key === "Escape") {
+                event.preventDefault();
+                event.stopPropagation();
+                closeMenu();
+            } else if (event.key === "Tab") {
+                const items = focusableItems();
+                const first = items[0] || closeButton;
+                const last = items[items.length - 1] || closeButton;
+                if (event.shiftKey && (document.activeElement === first || !navigation.contains(document.activeElement))) {
+                    event.preventDefault();
+                    last.focus({ preventScroll: true });
+                } else if (!event.shiftKey && (document.activeElement === last || !navigation.contains(document.activeElement))) {
+                    event.preventDefault();
+                    first.focus({ preventScroll: true });
+                }
+            }
+        }, true);
+        document.addEventListener("focusin", (event) => {
+            if (isOpen() && !navigation.contains(event.target)) {
+                closeButton.focus({ preventScroll: true });
+            }
+        });
+        header.addEventListener("keydown", (event) => {
+            if (mobilePreference.matches && event.key === "Escape" && search.classList.contains("is-search-open")) {
+                closeSearch();
+                searchButton.focus({ preventScroll: true });
+            }
+        });
+        document.addEventListener("pointerdown", (event) => {
+            if (mobilePreference.matches && !header.contains(event.target)) {
+                closeSearch();
+            }
+        });
+        search.addEventListener("submit", (event) => {
+            if (mobilePreference.matches && !search.classList.contains("is-search-open")) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                closeMenu(false);
+                search.classList.add("is-search-open");
+                searchButton.setAttribute("aria-expanded", "true");
+                searchInput.focus();
+            }
+        }, true);
+        mobilePreference.addEventListener("change", syncMobileHeader);
+        syncMobileHeader();
+    }
+
     // Load the official API only when the background video can actually be shown.
     function loadYouTubeAPI() {
         if (window.YT?.Player) {
@@ -262,7 +506,8 @@
         let hasShownVideo = false;
 
         function shouldPlay() {
-            return !failed && !motionPreference.matches && !document.hidden && !dialog?.open && inView;
+            return !mobilePreference.matches && !failed && !motionPreference.matches
+                && !document.hidden && !dialog?.open && inView;
         }
 
         function showFallback() {
@@ -304,7 +549,14 @@
             }, hasShownVideo ? 300 : 1500);
         }
 
-        function failVideo() {
+        function failVideo(event) {
+            if (event?.target && event.target !== player) {
+                return;
+            }
+            if (mobilePreference.matches) {
+                showFallback();
+                return;
+            }
             failed = true;
             showFallback();
             if (ready) {
@@ -322,7 +574,7 @@
         }
 
         async function createPlayer() {
-            if (loading || player || failed || !/^https?:$/.test(window.location.protocol)) {
+            if (mobilePreference.matches || loading || player || failed || !/^https?:$/.test(window.location.protocol)) {
                 return;
             }
             loading = true;
@@ -350,6 +602,10 @@
                     },
                     events: {
                         onReady(event) {
+                            if (event.target !== player || mobilePreference.matches) {
+                                event.target.destroy();
+                                return;
+                            }
                             ready = true;
                             const iframe = event.target.getIframe();
                             iframe.tabIndex = -1;
@@ -360,6 +616,9 @@
                             updateHeroPlayback();
                         },
                         onStateChange(event) {
+                            if (event.target !== player || mobilePreference.matches) {
+                                return;
+                            }
                             playbackState = event.data;
                             if (event.data === youtube.PlayerState.PLAYING) {
                                 if (shouldPlay()) {
@@ -393,6 +652,23 @@
         }
 
         updateHeroPlayback = () => {
+            if (mobilePreference.matches) {
+                showFallback();
+                if (player) {
+                    const previousPlayer = player;
+                    player = null;
+                    ready = false;
+                    failed = false;
+                    playbackState = -1;
+                    hasShownVideo = false;
+                    previousPlayer.destroy();
+                    // YouTube replaces the mount with an iframe. Restore it for PC/tablet re-entry.
+                    const mount = document.createElement("div");
+                    mount.id = "hero-player";
+                    hero.querySelector(".hero-video").replaceChildren(mount);
+                }
+                return;
+            }
             if (!shouldPlay() || failed) {
                 showFallback();
                 if (ready) {
@@ -424,6 +700,7 @@
         }
 
         motionPreference.addEventListener("change", updateHeroPlayback);
+        mobilePreference.addEventListener("change", updateHeroPlayback);
         document.addEventListener("visibilitychange", updateHeroPlayback);
         updateHeroPlayback();
     }
@@ -470,28 +747,50 @@
         }
 
         if (typeof window.Swiper === "function" && !element.swiper) {
-            repeatSlidesForLoop(element);
-            const swiper = new window.Swiper(element, {
-                slidesPerView: 4,
-                slidesPerGroup: 1,
-                spaceBetween: 24,
-                loop: true,
-                speed: motionPreference.matches ? 0 : 450,
-                navigation: {
-                    prevEl: element.querySelector(".best-prev"),
-                    nextEl: element.querySelector(".best-next"),
-                    addIcons: false
-                },
-                a11y: {
-                    containerMessage: "베스트 상품",
-                    prevSlideMessage: "이전 베스트 상품",
-                    nextSlideMessage: "다음 베스트 상품"
-                }
-            });
+            const wrapper = element.querySelector(".item-list");
+            const originals = [...wrapper.children].filter((slide) => !slide.hasAttribute("data-loop-copy"));
+            let swiper;
+
+            function mountBestSlider() {
+                const mobile = mobilePreference.matches;
+                // Row-filled Grid uses rewind; PC/tablet retain the original loop options.
+                swiper?.destroy(true, true);
+                wrapper.replaceChildren(...originals);
+                repeatSlidesForLoop(element);
+                swiper = new window.Swiper(element, {
+                    slidesPerView: mobile ? 2 : 4,
+                    slidesPerGroup: mobile ? 2 : 1,
+                    spaceBetween: mobile ? 30 : 24,
+                    breakpoints: mobile ? {} : {
+                        1024: { spaceBetween: "3.010752688%" },
+                        1281: { spaceBetween: 24 }
+                    },
+                    loop: !mobile,
+                    rewind: mobile,
+                    grid: { rows: mobile ? 2 : 1, fill: mobile ? "row" : "column" },
+                    speed: motionPreference.matches ? 0 : 450,
+                    navigation: {
+                        prevEl: element.querySelector(".best-prev"),
+                        nextEl: element.querySelector(".best-next"),
+                        addIcons: false
+                    },
+                    a11y: {
+                        containerMessage: "베스트 상품",
+                        prevSlideMessage: "이전 베스트 상품",
+                        nextSlideMessage: "다음 베스트 상품"
+                    }
+                });
+            }
+
+            mountBestSlider();
+            mobilePreference.addEventListener("change", mountBestSlider);
             element.querySelectorAll(".best-prev, .best-next").forEach((button) => {
                 button.disabled = false;
             });
-            bindSliderKeys(element, swiper);
+            bindSliderKeys(element, {
+                slidePrev: () => swiper.slidePrev(),
+                slideNext: () => swiper.slideNext()
+            });
             motionPreference.addEventListener("change", () => {
                 swiper.params.speed = motionPreference.matches ? 0 : 450;
             });
@@ -557,6 +856,10 @@
             initialSlide: 1,
             slidesPerGroup: 1,
             spaceBetween: 50,
+            breakpoints: {
+                0: { spaceBetween: 30 },
+                769: { spaceBetween: 50 }
+            },
             loop: true,
             speed: motionPreference.matches ? 0 : 600,
             autoplay: {
@@ -656,6 +959,11 @@
             slidesPerView: "auto",
             slidesPerGroup: 1,
             spaceBetween: 24,
+            initialSlide: mobilePreference.matches ? 1 : 0,
+            breakpoints: {
+                0: { centeredSlides: true, slidesOffsetBefore: -153 },
+                769: { centeredSlides: false, slidesOffsetBefore: 0 }
+            },
             loop: true,
             speed: motionPreference.matches ? 0 : 450,
             navigation: {
@@ -689,41 +997,75 @@
 
         const track = marquee.querySelector(".marquee-track");
         const groups = [...track.querySelectorAll(".marquee-group")];
-        const tileWidth = 1267; // Original Figma wordmark crop width, also used by .marquee-item.
+        let tileWidth = 0;
         let copiesPerGroup = 0;
         let resizeFrame = 0;
         let inView = typeof IntersectionObserver !== "function";
 
+        const speed = 40; // Pixels per second at both PC and tablet sizes.
+        const maximumCopies = 64; // At most 128 tiles across the two identical groups.
+
         function buildGroups() {
             resizeFrame = 0;
-            const copies = Math.ceil(window.innerWidth / tileWidth) + 1;
-            if (copies === copiesPerGroup) {
+            const probe = track.querySelector(".marquee-item");
+            const measuredWidth = probe?.getBoundingClientRect().width;
+            const viewportWidth = marquee.getBoundingClientRect().width;
+            // An open modal or unfinished layout can leave the probe without a box.
+            // Keep the existing groups until a load/resize/visibility event retries.
+            if (!Number.isFinite(measuredWidth) || measuredWidth <= 0
+                || !Number.isFinite(viewportWidth) || viewportWidth <= 0) {
+                return;
+            }
+            const copies = Math.ceil(viewportWidth / measuredWidth) + 1;
+            if (!Number.isSafeInteger(copies) || copies < 1 || copies > maximumCopies) {
+                return;
+            }
+            if (copies === copiesPerGroup && measuredWidth === tileWidth) {
                 return;
             }
             const animation = track.getAnimations?.()[0];
-            const previousOffset = animation && copiesPerGroup
-                ? ((Number(animation.currentTime) || 0) / 1000 * 40) % (copiesPerGroup * tileWidth)
+            const time = Number(animation?.currentTime);
+            const phase = tileWidth > 0 && Number.isFinite(time)
+                ? ((time / 1000 * speed) % tileWidth) / tileWidth
                 : 0;
-            copiesPerGroup = copies;
-            groups.forEach((group) => {
-                const items = Array.from({ length: copies }, () => {
+            // Build off-DOM only after all size/count checks have passed.
+            const replacements = groups.map(() => {
+                const fragment = document.createDocumentFragment();
+                for (let index = 0; index < copies; index += 1) {
                     const item = document.createElement("span");
                     item.className = "marquee-item";
-                    return item;
-                });
-                group.replaceChildren(...items);
+                    fragment.append(item);
+                }
+                return fragment;
             });
-            // The two groups are identical: -50% lands at exactly the second group's start.
-            track.style.setProperty("--marquee-duration", `${(copies * tileWidth) / 40}s`);
+            groups.forEach((group, index) => group.replaceChildren(replacements[index]));
+            tileWidth = measuredWidth;
+            copiesPerGroup = copies;
+            // -50% moves exactly one group. Preserve the phase within its repeated tile.
+            track.style.setProperty("--marquee-duration", `${copies * tileWidth / speed}s`);
             marquee.classList.add("is-ready");
             const updatedAnimation = track.getAnimations?.()[0];
             if (updatedAnimation) {
-                updatedAnimation.currentTime = previousOffset / 40 * 1000;
+                updatedAnimation.currentTime = phase * tileWidth / speed * 1000;
+            }
+        }
+
+        function scheduleBuild() {
+            if (!resizeFrame) {
+                resizeFrame = window.requestAnimationFrame(() => {
+                    try {
+                        buildGroups();
+                    } catch (error) {
+                        resizeFrame = 0;
+                        console.error("Unable to initialize the brand marquee:", error);
+                    }
+                });
             }
         }
 
         function syncPause() {
             marquee.classList.toggle("is-paused", !inView || document.hidden || dialog?.open || motionPreference.matches);
+            scheduleBuild();
         }
 
         if (typeof IntersectionObserver === "function") {
@@ -732,16 +1074,19 @@
                 syncPause();
             }).observe(section);
         }
-        window.addEventListener("resize", () => {
-            if (!resizeFrame) {
-                resizeFrame = window.requestAnimationFrame(buildGroups);
-            }
-        });
+        window.addEventListener("resize", scheduleBuild);
+        window.addEventListener("load", scheduleBuild, { once: true });
+        document.fonts?.ready.then(scheduleBuild);
+        if (typeof ResizeObserver === "function") {
+            const observer = new ResizeObserver(scheduleBuild);
+            observer.observe(marquee);
+            observer.observe(section);
+        }
         document.addEventListener("visibilitychange", syncPause);
         dialog?.addEventListener("close", syncPause);
         dialog?.addEventListener("toggle", syncPause);
         motionPreference.addEventListener("change", syncPause);
-        buildGroups();
+        scheduleBuild();
         syncPause();
     }
 
@@ -809,10 +1154,15 @@
 
     initEventModal();
     initHeader();
+    initMobileHeader();
     initHero();
     initBestItems();
     initEventSlider();
     initInstagram();
-    initBrandMarquee();
+    try {
+        initBrandMarquee();
+    } catch (error) {
+        console.error("Unable to initialize the brand marquee:", error);
+    }
     initSectionReveals();
 })();

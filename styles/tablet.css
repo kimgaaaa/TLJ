@@ -1,0 +1,333 @@
+/* Figma yjkd9MJTZv6K4zdTHaompb / 105:514: 1280 × 5768.
+ * PC: >=1281px. Tablet: 769–1280px. Mobile: <=768px, not implemented.
+ * The second query temporarily retains a minimum 769px tablet canvas below 769px.
+ * Replace that fallback when the mobile Figma is supplied; connect mobile.css last.
+ * Existing Text Styles, colors and effects match the PC tokens.
+ */
+@media (min-width: 769px) and (max-width: 1280px), (max-width: 768px) {
+    body {
+        min-width: 769px;
+    }
+
+    html {
+        scrollbar-gutter: auto;
+    }
+
+    .inner {
+        max-width: none;
+        margin-inline: var(--scale-20);
+    }
+
+    .hero {
+        height: 852px;
+        aspect-ratio: auto;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .hero-video {
+        inset: 50% auto auto 50%;
+        width: max(104%, 1576px);
+        height: max(104%, 886px);
+        transform: translate(-50%, -50%);
+    }
+
+    .categories {
+        gap: var(--scale-20);
+        margin-top: 80px;
+    }
+
+    .categories li {
+        flex: 0 1 154px;
+        min-width: 0;
+    }
+
+    .category-image-container {
+        height: auto;
+        aspect-ratio: 154 / 150;
+    }
+
+    .category-image-container img {
+        max-width: 80%;
+        height: auto;
+    }
+
+    .best-item {
+        margin-top: 80px;
+    }
+
+    .best-slider .item-list {
+        gap: 3.010752688%;
+    }
+
+    .best-slider .swiper-slide {
+        flex-basis: calc((100% - 3 * 3.010752688%) / 4);
+    }
+
+    .event {
+        margin-top: 100px;
+    }
+
+    .app-intro {
+        margin-top: 100px;
+    }
+
+    .app-intro .inner {
+        min-height: 640px;
+        padding-top: 135px;
+        padding-bottom: 87px;
+    }
+
+    .app-content-container {
+        margin-left: clamp(0px, calc((100vw - 1030px) / 2), 125px);
+    }
+
+    .app-visual-container {
+        top: 52px;
+        right: 0;
+        left: auto;
+        width: 600px;
+    }
+
+    .app-phone-hover-container {
+        overflow: hidden;
+    }
+
+    .phone-mockup {
+        position: relative;
+        left: -39px;
+        max-width: none;
+    }
+
+    .app-icon-enter {
+        left: 26px;
+    }
+
+    .delivery,
+    .bulk-order,
+    .insta {
+        margin-top: 100px;
+    }
+
+    .delivery > .title {
+        margin-inline: var(--scale-20);
+    }
+
+    .cake-delivery::before {
+        background-position: center;
+        scale: 1;
+        transform-origin: center;
+    }
+
+    .flower-delivery::before {
+        background-position: 50% 19.32%;
+        scale: 1.3198;
+        transform-origin: 50% 19.32%;
+    }
+
+    .cake-delivery .delivery-content-container {
+        padding-left: 55px;
+    }
+
+    .bulk-order-content-container {
+        margin-left: calc(50% - 246px);
+    }
+
+    .bulk-marquee {
+        top: -34px;
+        height: 253px;
+    }
+
+    .marquee-track {
+        left: calc(50% - 695px);
+    }
+
+    .marquee-item {
+        flex-basis: 1091px;
+        width: 1091px;
+        height: 253px;
+    }
+
+    .croissant {
+        top: 249.26px;
+        left: calc(50% - 668px);
+        width: 496.759px;
+        height: auto;
+    }
+
+    .sandwich-gift {
+        top: 67px;
+        left: calc(50% + 206px);
+        width: 529px;
+        height: auto;
+    }
+
+    .insta {
+        gap: 50px;
+        padding-left: var(--scale-20);
+    }
+
+    .store-franchise {
+        margin-top: 100px;
+    }
+
+    .store-franchise .inner {
+        margin-inline: 0;
+    }
+
+    .store-content-container {
+        margin-left: 40px;
+    }
+
+    .store-finder > img {
+        left: auto;
+        right: 40px;
+    }
+
+    .franchise > img {
+        left: auto;
+        right: 0;
+    }
+
+    .store-franchise .title h2 {
+        white-space: normal;
+    }
+
+    footer {
+        display: flex;
+        align-items: center;
+    }
+
+    footer > .inner {
+        flex: 1;
+        min-width: 0;
+        margin-inline: 40px;
+    }
+
+    .brand-about {
+        flex: 1;
+        min-width: 0;
+        margin-right: 40px;
+    }
+
+    .brand-cs {
+        flex: 0 0 240px;
+    }
+
+    .copyright {
+        text-align: center;
+    }
+
+    .event .event-more {
+        color: var(--on-color-text);
+        background: var(--surface-dark);
+    }
+
+    .event .event-more::after {
+        background-image: url("../images/icons/chevron-right-wh.svg");
+    }
+
+    .contact-links .go-contact,
+    .store-franchise .button-fill {
+        color: var(--on-color-text);
+        background: var(--color-primary);
+    }
+}
+
+@media (max-width: 1280px) and (hover: none) {
+    .best-controls,
+    .product-actions {
+        opacity: 1;
+    }
+
+    .product-actions {
+        transform: none;
+        pointer-events: auto;
+    }
+
+    .category-name {
+        opacity: 1;
+        transform: none;
+    }
+
+    .insta-post:active .insta-overlay,
+    .insta-post:active .insta-icon {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* Compact tablet adjustments; the pending mobile range inherits the same canvas.
+ * Keep the supplied 1280px composition unchanged, including its typography.
+ */
+@media (max-width: 1023px) {
+    header nav > ul {
+        gap: clamp(12px, 2.4vw, 24px);
+    }
+
+    .sub-menu,
+    .user-menu {
+        gap: var(--scale-12);
+    }
+
+    #search {
+        width: clamp(160px, 23vw, 230px);
+    }
+
+    .category-all img {
+        max-width: 56%;
+    }
+
+    .app-visual-container {
+        width: min(600px, calc(100% - 334px));
+        height: auto;
+        aspect-ratio: 600 / 550;
+    }
+
+    .phone-mockup {
+        left: -6.5%;
+        width: 111.166667%;
+        height: auto;
+    }
+
+    .app-icon-enter {
+        top: 67.090909%;
+        left: 4.333333%;
+        width: 21.666667%;
+        height: auto;
+        aspect-ratio: 1;
+    }
+
+    .app-icon {
+        width: 100%;
+        height: auto;
+    }
+
+    .croissant {
+        top: auto;
+        bottom: 23px;
+        left: -2.1875%;
+        width: 38.809297%;
+    }
+
+    .sandwich-gift {
+        top: auto;
+        left: auto;
+        right: -7.421875%;
+        bottom: 0;
+        width: 41.328125%;
+    }
+
+    .store-content-container,
+    .franchise-content-container {
+        margin-inline: var(--scale-20);
+    }
+
+    .store-franchise article > img {
+        top: auto;
+        right: var(--scale-20);
+        bottom: var(--scale-20);
+        width: 35%;
+        height: auto;
+    }
+}

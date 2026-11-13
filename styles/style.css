@@ -786,18 +786,22 @@ header nav > ul {
     position: absolute;
     inset: 0;
     background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .cake-delivery::before {
     background-image: url("../images/delivery/cake.png");
-    background-size: 128.83% 107.4%;
     background-position: 50.12% 50.81%;
+    /* Figma's 107.4% crop is a uniform zoom, independent of the card width. */
+    scale: 1.074;
+    transform-origin: 50.12% 50.81%;
 }
 
 .flower-delivery::before {
     background-image: url("../images/delivery/flower.png");
-    background-size: 158.98% 132.45%;
     background-position: 50.12% 27.3%;
+    scale: 1.3245;
+    transform-origin: 50.12% 27.3%;
 }
 
 .delivery-list article::after {
