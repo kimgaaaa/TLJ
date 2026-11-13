@@ -24,6 +24,17 @@
         if (typeof window.Swiper === "function") {
             modalSwiper = new window.Swiper(dialog.querySelector(".modal-slider"), {
                 slidesPerView: 1,
+                breakpoints: {
+                    0: { autoHeight: true },
+                    769: { autoHeight: false }
+                },
+                on: {
+                    slideChange(swiper) {
+                        if (mobilePreference.matches) {
+                            swiper.el.scrollTop = 0;
+                        }
+                    }
+                },
                 loop: true,
                 speed: motionPreference.matches ? 0 : 450,
                 navigation: {

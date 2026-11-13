@@ -783,15 +783,79 @@
         text-align: left;
     }
 
+    .event-modal {
+        width: calc(100% - 32px);
+        min-width: 0;
+        max-height: calc(100vh - 32px);
+        max-height: calc(100dvh - 32px);
+        overflow: hidden;
+    }
+
+    .event-modal[open] {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .event-modal .modal-close {
+        width: 44px;
+        height: 44px;
+    }
+
+    .event-modal .modal-slider {
+        flex: 0 1 auto;
+        min-width: 0;
+        min-height: 0;
+        width: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    .event-modal .modal-controls {
+        flex: none;
+    }
+
+    .event-modal .modal-list {
+        align-items: flex-start;
+    }
+
     .modal-list article {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        min-width: 0;
+        min-height: 0;
         height: auto;
-        min-height: 301px;
-        aspect-ratio: 608 / 301;
+        aspect-ratio: auto;
+        /* Keep the existing image source; render it only in the first grid row. */
+        background-size: 0 0;
+        background-repeat: no-repeat;
+    }
+
+    .modal-list article::before {
+        content: "";
+        grid-area: 1 / 1;
+        justify-self: center;
+        width: 100%;
+        margin-inline: auto;
+        aspect-ratio: 1707 / 921;
+        background-image: inherit;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
     }
 
     .event-modal .event-content-container {
-        padding-left: 24px;
-        padding-right: 24px;
+        grid-area: 2 / 1;
+        position: relative;
+        inset: auto;
+        min-width: 0;
+        height: auto;
+        padding: 24px;
+    }
+
+    .event-modal .event-copy-container {
+        min-width: 0;
+        word-break: keep-all;
     }
 
     .event-modal h3 {
@@ -803,12 +867,19 @@
     }
 
     .event-modal .event-logo {
-        top: auto;
-        bottom: 35px;
-        left: 50%;
+        grid-area: 1 / 1;
+        position: relative;
+        inset: auto;
+        align-self: end;
+        justify-self: center;
         width: 43.256579%;
+        max-width: calc(100% - 32px);
         height: auto;
+        object-fit: contain;
+        object-position: center;
+        margin: 12px auto;
     }
+
 }
 
 /* Natural shrink below the supplied 768px frame; no alternate content/layout. */
